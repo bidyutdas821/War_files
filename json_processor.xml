@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Workflow PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Workflow name="Web_Json_Processor" type="Subprocess">
+  <Variable input="true" name="body"/>
+  <Variable initializer="true" name="trace"/>
+  <Step icon="Start" name="Start" posX="15" posY="9">
+    <Transition to="create file"/>
+  </Step>
+  <Step icon="Default" name="create file" posX="120" posY="11">
+    <Arg name="body" value="ref:body"/>
+    <Script>
+      <Source>
+import java.io.FileWriter;
+import java.io.IOException;
+import org.json.JSONObject;
+
+import java.util.Map;
+
+    try {
+JSONObject jsonObject = new JSONObject(body);
+      // Creates a FileWriter
+      FileWriter output = new FileWriter("C:/Users/bidyu/Downloads/outpuft.json");
+
+      // Writes the string to the file
+      output.write(jsonObject.toString());
+
+      // Closes the writer
+      output.close();
+    }
+
+    catch (Exception e) {
+      e.getStackTrace();
+    }
+  </Source>
+    </Script>
+    <Transition to="Stop"/>
+  </Step>
+  <Step icon="Stop" name="Stop" posX="217" posY="23"/>
+</Workflow>
